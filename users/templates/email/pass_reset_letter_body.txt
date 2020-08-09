@@ -1,0 +1,6 @@
+{% autoescape off %}
+Уважаемый, {{ user.username }}!
+Для сброса пароля перейдите по ссылке и следуйте инструкциям.
+
+{{ protocol }}://{{ domain }}{% url 'users:reset_pass_confirm' uidb64=uid token=token %}
+{% endautoescape %}

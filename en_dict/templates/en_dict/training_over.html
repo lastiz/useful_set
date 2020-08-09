@@ -1,0 +1,26 @@
+{% extends 'layout/base_endict.html' %}
+
+{% load static %}
+
+{% block title %}Тренировка окончена - Dictionary{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Тренировка окончена!</h2>
+<div class="row mt-2"> 
+    <div class="col-md-auto justify-content-end"><img src="{% static 'en_dict/en_stat1.jpeg' %}" width="150"></div>
+    <div class="col">
+        <h4 class="text-center">Статистика</h4>
+        <p class="text-center">Слова: {{ cnt }}</p>
+        <p class="text-center">Верные переводы: {{ true_answer }}</p>
+        {% if true_percent > 69 %}
+        <p class="text-center">Процент правильности: <font color="green">{{ true_percent }}%</font></p>
+        {% else %}
+        <p class="text-center">Процент правильности: <font color="red">{{ true_percent }}%</font></p>
+        {% endif %}
+        <p class="text-center"><a href="{% url 'en_dict:training' %}?new=True"><font class="font-italic">Начать заново</font></a></p>
+    </div>
+    <div class="col-md-auto"><img src="{% static 'en_dict/en_stat2.jpeg' %}" width="150"></div>
+</div>   
+
+<a href="{% url 'en_dict:training' %}?new=True">Начать заново</a>
+{% endblock content %}

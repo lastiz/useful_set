@@ -1,0 +1,9 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Успешная активация - Useful Set{% endblock title %}
+
+{% block content %}
+    <h2 class="text-center" >Активация прошла успешно!</h2>
+    <p class="text-center"><a href="{% url 'users:login' %}">
+    Кликните для входа на сайт!</a></p>
+{% endblock content %}

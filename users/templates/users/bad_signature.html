@@ -1,0 +1,9 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Активация не удалась - Useful Set{% endblock title %}
+
+{% block content %}
+    <h2 class="text-center" >В процессе активации возникла ошибка!</h2>
+    <p class="text-center"><a href="{% url 'users:register' %}">
+    Пройдите регистрацию повторно.</a></p>
+{% endblock content %}

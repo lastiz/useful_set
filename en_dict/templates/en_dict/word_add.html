@@ -1,0 +1,23 @@
+{% extends 'layout/base_endict.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Добавить слово - Dictionary{% endblock title %}
+
+{% block content %}
+    <h2 class="text-center">Добавить слово</h2>
+    <div class="container mt-5 row align-items-center">
+        <div class="col">
+            <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form layout='horizontal' %}
+            <!--{% buttons submit='Добавить' reset='Очистить' %}{% endbuttons %}-->
+            <button class="text-primary btn btn-link" type="submit">Добавить</button>
+            <button class="text-danger btn btn-link" type="reset">Очистить</button>
+            </form>
+        </div>
+        <div class="col-md-auto"><img src="{% static 'en_dict/add_word.gif' %}" width="300"></div>
+    </div>
+    <p class="text-center"><a href="{% url 'en_dict:training' %}?new=True" class="mt-4">Начать новую тренировку</a></p>
+{% endblock content %}

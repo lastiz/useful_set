@@ -1,0 +1,51 @@
+{% extends 'layout/base_endict.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Главная - Dictionary{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Ваш словарь</h2>
+<div class="row m-2">
+    <div class="col"><p class="text-center"><a href="{% url 'en_dict:add_word' %}">Добавить слова</a></p></div>
+    {% if word_list %}
+    <div class="col"><p class="text-center"><a href="{% url 'en_dict:training' %}">Тренировка</a></p></div>
+    {% endif %}
+</div>
+<div class="container row mt-4 justify-content-between">
+    {% if word_list %}
+  <div class="col-7">  
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Eng</th>
+                <th scope="col">Rus</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for word_obj in word_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter}}</th>
+                <td>{{ word_obj.word }}</td>
+                <td>{{ word_obj.transfer }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+    {% bootstrap_pagination page_obj%}
+    {% endif %}
+  </div>
+  <div class="col-md-auto"><img src="{% static 'en_dict/index_will.jpeg' %}" width="300"></div>
+    {% else %}
+    <div class="col-md-auto">
+        <p>В данный момент у тебя нет слов!<br>Ты должен добавить новые слова,<br>что бы в дальнейшем получить возможность<br>тренироваться!</p>
+    </div>
+    <div class="col-md-auto">
+        <img src="{% static 'en_dict/endict_index_no_words.gif' %}">
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

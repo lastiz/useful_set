@@ -1,0 +1,20 @@
+{% extends 'layout/base_proxies.html' %}
+
+{% load static %}
+
+{% block title %}Главная - Proxies{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Proxies</h2>
+<div class="row mt-4 align-items-center justify-content-center">
+    <div class="col-md-auto">
+        <img src="{% static 'proxies/proxies_index.jpeg' %}" width="80">
+    </div>
+    <div class="col text-center">
+        <p class="lead">Что бы получить примерно 300 прокси,<br>проверенных в реальном времени,<br>жми <a href="{% url 'proxies:proxies_list' %}">СЮДА</a>.</p>
+    </div>
+    <div class="col-md-auto"></div>
+        <img src="{% static 'proxies/proxies_index2.jpg' %}" width="200">
+    </div>
+</div>
+{% endblock content %}

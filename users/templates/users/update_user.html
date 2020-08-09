@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Изменение данных пользователя - Useful Set{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Изменение данных пользователя</h2>
+<div class="row align-items-center">
+    <div class="col">
+        <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal'%}
+        <!--{% buttons submit='Изменить'%}{% endbuttons%}-->
+        <button class="text-primary btn btn-link" type="submit">Изменить</button>
+        <button class="text-danger btn btn-link" type="reset">Очистить</button>
+        </form>
+    </div>
+    <div class="co-md-auto row justify-content-center">
+        <img src="{% static 'users/users_update.gif' %}" width="250">
+    </div>
+</div>
+
+{% endblock content %}

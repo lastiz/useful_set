@@ -1,0 +1,40 @@
+{% extends 'layout/base_endict.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Тренировка - Dictionary{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Тренировка</h2>
+<div class="container row mt-2 align-items-center">
+    <div class="col-md-auto">
+        <p class="mb-2">Введите перевод: <abbr title="Ты должен это знать..." class="initialism">{{ word }}</abbr></p>
+        <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal' %}
+        <!--{% buttons submit='Ответить' reset='Очистить' %}{% endbuttons %}-->
+        <button class="text-primary btn btn-link" type="submit">Ответить</button>
+        <button class="text-danger btn btn-link" type="reset">Очистить</button>
+        </form>
+    </div>
+    <div class="col"></div>
+    <div class="col-md-auto"><img src="{% static 'en_dict/training.gif' %}" width="250"></div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-auto justify-content-end"><img src="{% static 'en_dict/en_stat1.jpeg' %}" width="150"></div>
+    <div class="col">
+        <h4 class="text-center">Статистика</h4>
+        <p class="text-center">Слова: {{ cnt }}</p>
+        <p class="text-center">Верные переводы: {{ true_answer }}</p>
+        {% if true_percent > 69 %}
+        <p class="text-center">Процент правильности: <font color="green">{{ true_percent }}%</font></p>
+        {% else %}
+        <p class="text-center">Процент правильности: <font color="red">{{ true_percent }}%</font></p>
+        {% endif %}
+        <p class="text-center"><a href="{% url 'en_dict:training' %}?new=True"><font class="font-italic">Начать заново</font></a></p>
+    </div>
+    <div class="col-md-auto"><img src="{% static 'en_dict/en_stat2.jpeg' %}" width="150"></div>
+</div>
+
+{% endblock content %}

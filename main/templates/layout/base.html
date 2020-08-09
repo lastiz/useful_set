@@ -1,0 +1,70 @@
+{% load bootstrap4 %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8" content='text/html' http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body class="container">
+    <header class="row my-4 align-items-center">
+        <div class="col-md-auto">{% block header_img %}<img src="{% static 'layout/logo1.jpeg' %}" width="150" height="150">{% endblock header_img %}</div>
+        <div class="col">
+            <h1 class="display-1 text-center">{% block header %}Useful Set{% endblock header %}</h1>
+        </div>
+        <div class="col-md-auto">{% block header_img2 %}<img src="{% static 'layout/logo2.jpeg' %}" width="150" height="150">{% endblock header_img2 %}</div>
+    </header>
+    <div class="row">
+        <ul class="col nav justify-content-end border-bottom">
+            <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Регистрация</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item-dropdown">
+                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                role="button" aria-haspopup="true" aria-expanded="false">Профиль</a>
+                <div class="dropdown-menu">
+                    <a href="{% url 'users:profile' %}" class="dropdown-item">Информация</a>
+                    <a href="{% url 'users:user_update' %}" class="dropdown-item">Изменить личные данные</a>
+                    <a href="{% url 'users:user_update_pass' %}" class="dropdown-item">Изменить пароль</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'users:logout' %}" class="dropdown-item">Выйти</a>
+                </div>
+            </li>
+            {% else %}
+            <li class="nav-item"><a href="{% url 'users:login' %}" class="nav-link">Вход</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-auto justify-content-center border-right">
+            <h2 class="text-center">Разделы</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'en_dict:index' %}">>> Dictionary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'proxies:index' %}">>> Proxies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">>> В разработке</a>
+                </li>
+            </ul>  
+        </div>
+        <section class="container col p-2 ml-5">
+        {% bootstrap_messages%}
+        {% block content %}
+        {% endblock content %}
+        </section>
+    </div>
+    <footer class="mt-3">
+        <p class="text-right font-italic">Created by Mike Lastin</p>
+    </footer>
+</body>
+</html>

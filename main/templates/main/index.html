@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Главная - Useful Set{% endblock title %}
+
+{% block content %}
+
+<div class="row mt-3"> 
+    <div class="col-md-auto border-right">
+        <img src="{% static 'main/main_index.gif' %}" width="200">
+    </div>
+    <div class="col">
+        <h2 class="text-center">Выбери раздел</h2>
+        <div class="row align-items-center justify-content-center mt-3">
+            <a class="col-md-auto" href="{% url 'en_dict:index' %}"><img src="{% static 'en_dict/logo1_endict.png' %}" width="200" alt="Proxies"></a>
+            <a class="col-md-auto" href="{% url 'proxies:index' %}"><img src="{% static 'proxies/logo1_proxies.png' %}" width="200" alt="Proxies"></a>
+        </div>
+    </div>
+</div> 
+{% endblock content %}

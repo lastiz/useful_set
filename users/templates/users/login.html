@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Вход - Useful Set{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Вход.</h2>
+{% if user.is_authenticated %}
+<p class="text-center">Вы уже выполнили вход.</p>
+<div class="container justify-content-center"><img src="{% static 'users/users_login_fail.jpeg' %}" width="400"></div>
+{% else %}
+<div class="row align-items-center">
+    <div class="col">
+        <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal'%}
+        <input type="hidden" name="next" value="{{ next }}">
+        <!--{% buttons submit='Войти'%}{% endbuttons %}-->
+        <button class="text-primary btn btn-link" type="submit">Войти</button>
+        <button class="text-danger btn btn-link" type="reset">Очистить</button>
+        </form>
+    </div>
+    <div class="col-md-auto"><img src="{% static 'users/users_login.jpeg' %}" width="300"></div>
+</div>
+
+{% endif %}
+<p class="text-right"><a href="{% url 'users:reset_pass' %}">Восстановить данные</a></p>
+{% endblock content %}

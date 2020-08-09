@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Смена пароля - Useful Set{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Смена пароля</h2>
+<div class="row align-items-center">
+    <div class="col">
+        <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form layout='horizontal'%}
+        <!--{% buttons submit='Изменить' %}{% endbuttons%}-->
+        <button class="text-primary btn btn-link" type="submit">Сменить</button>
+        <button class="text-danger btn btn-link" type="reset">Очистить</button>
+        </form>
+    </div>
+    <div class="col-md-auto">
+        <img src="{% static 'users/users_upd_pass.jpg' %}" width="250">
+    </div>
+</div>
+{% endblock content %}

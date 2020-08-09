@@ -1,0 +1,12 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Ошибка - 500{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">На сервере произошел сбой.<br>Я уже работаю над этим.</h2>
+<div class="row justify-content-center">
+    <img src="{% static 'exceptions/excep.gif' %}" width="300">
+</div>
+{% endblock content %}

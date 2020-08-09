@@ -1,0 +1,16 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Восстановление пароля - Useful Set{% endblock title %}
+
+{% block content %}
+<h2 class="text-center" >Введите email, на который будет отправлено письмо с инструкцией по сбросу пароля.</h2>
+<form method="post" >
+{% csrf_token %}
+{% bootstrap_form form layout='horizontal' %}
+<!--{% buttons submit='Отправить' %}{% endbuttons %}-->
+<button class="text-primary btn btn-link" type="submit">Отправить</button>
+<button class="text-danger btn btn-link" type="reset">Очистить</button>
+</form>
+{% endblock content %}

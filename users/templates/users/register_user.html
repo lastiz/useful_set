@@ -1,0 +1,20 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}Регистрация - Useful Set{% endblock title %}
+
+{% block content %}
+<h2>Регистрация нового пользователя.</h2>
+<form method="post" >
+{% csrf_token %}
+{% bootstrap_form form layout='horizontal' %}
+<!--{% buttons submit='Регистрация' %}{% endbuttons%}-->
+<button class="text-primary btn btn-link" type="submit">Зарегистрироваться</button>
+<button class="text-danger btn btn-link" type="reset">Очистить</button>
+</form>
+<div class="row justify-content-center">
+    <img src="{% static 'users/users_register.jpeg' %}" width="300">
+</div>
+{% endblock content %}

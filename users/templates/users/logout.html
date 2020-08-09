@@ -1,0 +1,17 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Выход - Useful Set{% endblock title %}
+
+{% block content %}
+<h2 class="text-center">Выход из профиля выполнен успешно</h2>
+<div class="mt-4 container">
+    <h4 class="text-center">Уже уходишь??? Ok...</h4>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-auto"><img src="{% static 'users/logout_okay.gif' %}" width="300"></div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock content %}
