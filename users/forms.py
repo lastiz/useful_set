@@ -11,7 +11,7 @@ class RegisterUserForm(forms.ModelForm):
     email = forms.EmailField(label='Адресс электронной почты', required=True, help_text='example@mail.com')
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput,
                                 help_text=password_validation._password_validators_help_text_html())
-    password2 = forms.CharField(label='Пароль (повторно)', help_text='Введите пароль повторно')
+    password2 = forms.CharField(label='Пароль (повторно)', help_text='Введите пароль повторно', widget=forms.PasswordInput)
 
     def clean_password(self):
         password1 = self.cleaned_data['password1']

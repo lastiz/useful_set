@@ -43,6 +43,12 @@ class WordAddView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     
     def get_initial(self):
         return {'user_id': self.user_id, }
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['check_words'] = Word.objects.filter(users=self.user_id).exists()
+        return context
+    
 
 
 @login_required            

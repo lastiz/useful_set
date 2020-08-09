@@ -31,15 +31,29 @@ class WordAddForm(forms.ModelForm):
             'transfer': 'Введите перевод на русском языке (разрешены только символы русского алфавита)',
         }
 
+    def clean_word(self):
+        return self.cleaned_data.get('word').lower()
+                                                            # преобразование всех полей в нижний регистр
+    def clean_transfer(self):
+        return self.cleaned_data.get('transfer').lower()
+        
+
     def clean(self):
         super().clean()
         word = self.cleaned_data['word']
+        transfer = self.cleaned_data['transfer']
         user_id = self.cleaned_data['user_id']
         #errors = {}
         user = AdvUser.objects.get(pk=user_id)
 
-        if word and user.words.filter(word=word).values('word'):  # если слово уже есть у пользователя
+        if word and user.words.filter(word__iexact=word).exists():  # если слово уже есть у пользователя
             raise ValidationError('Данное слово уже есть в вашем словаре!', code='invalid_word')
+        
+        # проверка на наличие введенного перевода у пользователя в словаре
+        check_transfer = user.words.values('word', 'transfer').filter(transfer__iexact=transfer)
+        if transfer and check_transfer:
+            raise ValidationError(f'Данный перевод уже есть в вашем словаре! ({check_transfer[0].get("transfer")} < --- > {check_transfer[0].get("word")})',
+                                                                                                                        code='invalid_transfer')
     
     def save(self, commit=True):
         """Сохраняем слово, если его еще нет в базе и добавляем хозяина"""

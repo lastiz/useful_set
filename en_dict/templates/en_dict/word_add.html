@@ -19,5 +19,8 @@
         </div>
         <div class="col-md-auto"><img src="{% static 'en_dict/add_word.gif' %}" width="300"></div>
     </div>
+    {% if check_words %}
     <p class="text-center"><a href="{% url 'en_dict:training' %}?new=True" class="mt-4">Начать новую тренировку</a></p>
+    {% endif %}
 {% endblock content %}
+
