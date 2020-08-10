@@ -23,7 +23,7 @@ class IndexListView(LoginRequiredMixin ,ListView):
         return super().dispatch(request, *args, **kwargs)
     
     def get_queryset(self):
-        return Word.objects.only('word', 'transfer').filter(users=self.user_id)
+        return Word.objects.only('word', 'transfer').filter(owner=self.user_id)
     
     
 
@@ -46,7 +46,7 @@ class WordAddView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['check_words'] = Word.objects.filter(users=self.user_id).exists()
+        context['check_words'] = Word.objects.filter(owner=self.user_id).exists()
         return context
     
 
@@ -59,7 +59,7 @@ def training(request):
     if request.GET.get('new', False) and request.method != 'POST':  # заново
         training_obj.del_session()
 
-    q = Q(users=request.user.pk) & ~Q(pk__in=training_obj.pk_ans_words)  # все слова пользователя, не входящие в отгаданные 
+    q = Q(owner=request.user.pk) & ~Q(pk__in=training_obj.pk_ans_words)  # все слова пользователя, не входящие в отгаданные 
     words = Word.objects.only('word', 'transfer').filter(q)
 
     if request.method != 'POST':

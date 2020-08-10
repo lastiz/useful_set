@@ -44,37 +44,25 @@ class WordAddForm(forms.ModelForm):
         transfer = self.cleaned_data['transfer']
         user_id = self.cleaned_data['user_id']
         #errors = {}
-        user = AdvUser.objects.get(pk=user_id)
+        self.user = AdvUser.objects.get(pk=user_id)
 
-        if word and user.words.filter(word__iexact=word).exists():  # если слово уже есть у пользователя
+        if word and self.user.words.filter(word__iexact=word).exists():  # если слово уже есть у пользователя
             raise ValidationError('Данное слово уже есть в вашем словаре!', code='invalid_word')
         
         # проверка на наличие введенного перевода у пользователя в словаре
-        check_transfer = user.words.values('word', 'transfer').filter(transfer__iexact=transfer)
+        check_transfer = self.user.words.values('word', 'transfer').filter(transfer__iexact=transfer)
         if transfer and check_transfer:
             raise ValidationError(f'Данный перевод уже есть в вашем словаре! ({check_transfer[0].get("transfer")} < --- > {check_transfer[0].get("word")})',
                                                                                                                         code='invalid_transfer')
     
     def save(self, commit=True):
         """Сохраняем слово, если его еще нет в базе и добавляем хозяина"""
-        en_word = self.cleaned_data['word']
-        user_id = self.cleaned_data['user_id']
-
-        try:
-            word_obj = Word.objects.get(word__iexact=en_word)
-        except ObjectDoesNotExist:
-            word_obj = None  # слова в базе нет
-
-        if en_word and word_obj:  # слово в базе
-            word_obj.users.add(user_id)
-        elif en_word and not word_obj:  # слова в базе нет, создаем слово и добавляем владельца
-            word_obj = super().save()
-            word_obj.users.add(user_id)
+        word = super().save(commit=False)
+        word.owner = self.user
 
         if commit:
-            word_obj.save()
-            #word_obj.save_m2m()
-        return word_obj
+            word.save()
+        return word
 
 
 class WordEnterForm(forms.Form):
